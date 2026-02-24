@@ -19,23 +19,39 @@ const errorNotification = (text) => {
 };
 
 const promise1 = new Promise((resolve, reject) => {
-  document.addEventListener('click', () => {
-    resolve(`First promise was resolved`);
-  });
+  document.addEventListener(
+    'click',
+    () => {
+      resolve(`First promise was resolved`);
+      clearTimeout(rejected);
+    },
+    { once: true },
+  );
 
-  setTimeout(() => {
+  const rejected = setTimeout(() => {
     reject(new Error(`First promise was rejected`));
+    document.removeEventListener('click', () => {});
   }, 3000);
 });
 
 const promise2 = new Promise((resolve) => {
-  document.addEventListener('click', () => {
-    resolve(`Second promise was resolved`);
-  });
+  document.addEventListener(
+    'click',
+    () => {
+      resolve(`Second promise was resolved`);
+      document.removeEventListener('click', () => {});
+    },
+    { once: true },
+  );
 
-  document.addEventListener('contextmenu', () => {
-    resolve(`Second promise was resolved`);
-  });
+  document.addEventListener(
+    'contextmenu',
+    () => {
+      resolve(`Second promise was resolved`);
+      document.removeEventListener('click', () => {});
+    },
+    { once: true },
+  );
 });
 
 const promise3 = new Promise((resolve) => {
