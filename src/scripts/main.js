@@ -27,7 +27,7 @@ const promise1 = new Promise((resolve, reject) => {
   document.addEventListener('click', resolved, { once: true });
 
   const rejected = setTimeout(() => {
-    reject(`First promise was rejected`);
+    reject(new Error(`First promise was rejected`));
     document.removeEventListener('click', resolved);
   }, 3000);
 });
