@@ -35,7 +35,7 @@ const promise1 = new Promise((resolve, reject) => {
 const promise2 = new Promise((resolve) => {
   const resolved = () => {
     resolve(`Second promise was resolved`);
-    document.removeEventListener('click', () => {});
+    document.removeEventListener('click', resolved);
   };
 
   document.addEventListener('click', resolved, { once: true });
